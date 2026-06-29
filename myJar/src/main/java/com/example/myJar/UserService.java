@@ -14,18 +14,36 @@ public class UserService {
         this.userRepository=userRepository;
     }
 
-    public User createUser(User user)
+    private UserDTO ConvertToDTO(User users)
     {
-        return userRepository.save(user);
+        return new UserDTO(
+                users.getId(),
+                users.getName(),
+                users.getEmail()
+        );
     }
 
-    public List<User> getAllUsers ()
+    public UserDTO createUser(User user)
     {
-        return userRepository.findAll();
+        User saved = userRepository.save(user);
+        return ConvertToDTO(saved);
     }
 
-    public User findById(int id)
+    public List<UserDTO> getAllUsers ()
     {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findAll()
+                .stream()
+                .map(this::ConvertToDTO)
+                .toList();
+    }
+
+    public UserDTO findById(int id)
+    {
+        User user = userRepository.findById(id).orElse(null);
+        if (user ==  null)
+        {
+            return null;
+        }
+        return ConvertToDTO(user);
     }
 }
