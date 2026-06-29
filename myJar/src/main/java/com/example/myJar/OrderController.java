@@ -14,18 +14,18 @@ public class OrderController {
     }
 
     @PostMapping("/add/{userId}")
-    public Orders create(@PathVariable int userId, @RequestBody Orders order) {
+    public OrderDTO create(@PathVariable int userId, @RequestBody Orders order) {
 
         return orderService.create(userId,order);
     }
 
     @GetMapping("/all")
-    public List<Orders> getAll() {
+    public List<OrderDTO> getAll() {
         return orderService.getAll();
     }
 
     @GetMapping("/user/{userId}")
-    public List<Orders> getByUser(@PathVariable int userId) {
+    public List<OrderDTO> getByUser(@PathVariable int userId) {
         return orderService.getByUserId(userId);
     }
 }
