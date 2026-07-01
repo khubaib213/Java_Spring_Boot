@@ -1,5 +1,6 @@
 package com.example.myJar;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public UserDTO create(@RequestBody User user){
+    public UserDTO create(@Valid @RequestBody CreateUserDTO user){
 
         return userService.createUser(user);
     }
