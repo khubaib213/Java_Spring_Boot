@@ -23,10 +23,11 @@ public class UserService {
         );
     }
 
-    public UserDTO createUser(User user)
+    public UserDTO createUser(CreateUserDTO request)
     {
-        User saved = userRepository.save(user);
-        return ConvertToDTO(saved);
+        User saved = new User(request.getName(), request.getEmail());
+        User user = userRepository.save(saved);
+        return ConvertToDTO(user);
     }
 
     public List<UserDTO> getAllUsers ()
