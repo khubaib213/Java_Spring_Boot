@@ -40,7 +40,7 @@ public class UserService {
 
     public UserDTO findById(int id)
     {
-        User user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found with id: "+id));
         if (user ==  null)
         {
             return null;
