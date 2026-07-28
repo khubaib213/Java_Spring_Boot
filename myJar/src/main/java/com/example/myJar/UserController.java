@@ -1,6 +1,7 @@
 package com.example.myJar;
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,5 +31,13 @@ public class UserController {
     public UserDTO getById(@PathVariable int id)
     {
         return userService.findById(id);
+    }
+
+    @GetMapping("/all/paginated")
+    public Page<UserDTO> getAllPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return userService.getAllUsersPaginated(page, size, sortBy);
     }
 }
