@@ -1,5 +1,6 @@
 package com.example.myJar;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByNameContaining(String name);
 
     @Query("SELECT u FROM User u WHERE u.name LIKE %:keyword%")
-    List<User> searchByName(String name);
+    List<User> searchByName(@Param("keyword") String keyword);
 
     Optional<User> findByEmail (String email);
 
