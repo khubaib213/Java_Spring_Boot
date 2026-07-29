@@ -65,4 +65,13 @@ public class UserService {
                 .map(this::ConvertToDTO)
                 .toList();
     }
+
+
+    public List<UserDTO> findByEmailDomain (String domain)
+    {
+        return  userRepository.findByEmailDomain(domain)
+                .stream()
+                .map(this::ConvertToDTO)
+                .toList();
+    }
 }

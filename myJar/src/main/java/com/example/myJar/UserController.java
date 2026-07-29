@@ -33,6 +33,18 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @GetMapping("/search")
+    public List<UserDTO> search (@RequestParam String keyword)
+    {
+        return userService.searchByName(keyword);
+    }
+
+    @GetMapping("/domain")
+    public List<UserDTO> findByDomain(@RequestParam String domain)
+    {
+        return userService.findByEmailDomain(domain);
+    }
+
     @GetMapping("/all/paginated")
     public Page<UserDTO> getAllPaginated(
             @RequestParam(defaultValue = "0") int page,
