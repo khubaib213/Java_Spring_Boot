@@ -57,4 +57,12 @@ public class UserService {
         return userRepository.findAll(pageable)
                 .map(this::ConvertToDTO);
     }
+
+    public List<UserDTO> searchByName (String Keyword)
+    {
+        return userRepository.searchByName(Keyword)
+                .stream()
+                .map(this::ConvertToDTO)
+                .toList();
+    }
 }
