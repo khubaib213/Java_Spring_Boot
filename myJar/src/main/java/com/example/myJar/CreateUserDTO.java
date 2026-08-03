@@ -15,6 +15,12 @@ public class CreateUserDTO {
     private String email;
     public CreateUserDTO(){}
 
+    public CreateUserDTO(String name, String email)
+    {
+        this.name=name;
+        this.email=email;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

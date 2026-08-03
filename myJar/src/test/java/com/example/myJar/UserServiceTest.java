@@ -1,5 +1,6 @@
 package com.example.myJar;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,5 +43,44 @@ public class UserServiceTest
 
         verify(userRepository, times(1)).findAll();
 
+    }
+
+    @Test
+    void findById_ShouldReturnUserDTO_whenUserExists()
+    {
+        when(userRepository.findById(1)).thenReturn(Optional.of(fakeUser));
+
+        UserDTO result = userService.findById(1);
+
+        assertNotNull(result);
+        assertEquals("Ali", result.getName());
+        assertEquals("ali@gmail.com", result.getEmail());
+    }
+
+
+    @Test
+    void findById_ShouldThrowException_WhenUserNotFound()
+    {
+        when(userRepository.findById(999)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () ->
+        {
+            userService.findById(999);
+        });
+    }
+
+    @Test
+    void createUser_ShouldSaveAndReturnUserDTO()
+    {
+        CreateUserDTO request = new CreateUserDTO("Ali", "ali@gmail.com");
+        when(userRepository.save(any(User.class))).thenReturn(fakeUser);
+
+        UserDTO result = userService.createUser(request);
+
+        assertNotNull(result);
+        assertEquals("Ali", result.getName());
+
+
+        verify(userRepository, times(1)).save(any(User.class));
     }
 }
